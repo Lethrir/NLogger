@@ -18,18 +18,18 @@ namespace NLogger
         {
             var written = false;
             var tries = 0;
+            
             while (!written && tries < 3)
             {
                 try
                 {
-                    if (tries > 0)
-                    {
-                        File.AppendAllText(file, text + " after " + tries + " tries " + "\r\n");
-                    }
-                    else
-                    {
-                        File.AppendAllText(file, text + "\r\n");
-                    }
+                    var time = DateTime.Now.ToLongTimeString();
+                    var date = DateTime.Now.ToShortDateString();
+                    var logText =
+                        tries > 0
+                            ? string.Format("{0} {1} {2} after {3} tries\r\n", date, time, text, tries)
+                            : string.Format("{0} {1} {2}\r\n", date, time, text);
+                    File.AppendAllText(file, logText);
                     written = true;
                 }
                 catch (Exception)
