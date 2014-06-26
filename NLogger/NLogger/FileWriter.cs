@@ -12,10 +12,10 @@ namespace NLogger
         private readonly int _maxFileSize;
         private readonly int _maxFiles;
 
-        public FileWriter(string file)
+        public FileWriter(string file, int fileSize, int numFiles)
         {
-            _maxFileSize = 1024*4;
-            _maxFiles = 3;
+            _maxFileSize = 1024*fileSize;
+            _maxFiles = numFiles;
             _file = file;
             _random= new Random();
             _currentDelay = _random.Next(10, 100);

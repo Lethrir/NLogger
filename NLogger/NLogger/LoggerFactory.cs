@@ -4,11 +4,37 @@ namespace NLogger
 {
     public static class LoggerFactory
     {
-        public static Logger CreateFileLogger()
+        /// <summary>
+        /// Create a logger using app.config or web.config settings
+        /// </summary>
+        /// <returns></returns>
+        public static ILogger CreateLogger()
         {
-            var file = ConfigurationManager.AppSettings["LogFile"];
-            var fileWriter = new FileWriter(file);
-            return new Logger(fileWriter, LoggingLevel.Diagnostic);
+            var config = (NLoggerSection)ConfigurationManager.GetSection("nLogger");
+            if (config.HasFileLogSection())
+            {
+                return CreateFileLogger(
+                    config.File.Path,
+                    config.File.MaxSize,
+                    config.File.MaxFiles,
+                    config.LogLevel);
+            }
+            else
+            {
+                return CreateEventLogLogger(config.LogLevel);
+            }
+        }
+
+        public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level)
+        {
+            var fileWriter = new FileWriter(file, fileSize, numFiles);
+            return new Logger(fileWriter, level);
+        }
+
+        public static ILogger CreateEventLogLogger(LoggingLevel level)
+        {
+            var eventLogWriter = new EventLogWriter();
+            return new Logger(eventLogWriter, level);
         }
     }
 }

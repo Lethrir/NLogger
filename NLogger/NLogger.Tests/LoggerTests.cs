@@ -9,12 +9,12 @@ namespace NLogger.Tests
     [TestClass]
     public class LoggerTests
     {
-        private Logger _logger;
+        private ILogger _logger;
 
         [TestInitialize]
         public void Init()
         {
-            _logger = LoggerFactory.CreateFileLogger();
+            _logger = LoggerFactory.CreateFileLogger("C:\\Logs\\Log.log", 10, 3, LoggingLevel.Diagnostic);
         }
 
         [TestMethod]
