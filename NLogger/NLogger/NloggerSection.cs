@@ -4,26 +4,6 @@ namespace NLogger
 {
     public class NLoggerSection : ConfigurationSection
     {
-        [ConfigurationProperty("filePath", IsRequired = false)]
-        public string FilePath
-        {
-            get { return (string) this["filePath"]; }
-            set { this["filePath"] = value; }
-        }
-
-        [ConfigurationProperty("numFiles", IsRequired = false, DefaultValue = 10)]
-        public int NumFiles
-        {
-            get { return (int)this["numFiles"]; }
-            set { this["numFiles"] = value; }
-        }
-
-        [ConfigurationProperty("fileSize", IsRequired = false, DefaultValue = 1000)]
-        public int FileSize
-        {
-            get { return (int)this["fileSize"]; }
-            set { this["fileSize"] = value; }
-        }
 
         [ConfigurationProperty("logLevel", IsRequired = false, DefaultValue = LoggingLevel.Diagnostic)]
         public LoggingLevel LogLevel
@@ -32,5 +12,57 @@ namespace NLogger
             set { this["logLevel"] = value; }
         }
 
+        [ConfigurationProperty("file")]
+        public FileElement File
+        {
+            get { return (FileElement) this["file"]; }
+            set { this["file"] = value; }
+        }
+
+        [ConfigurationProperty("eventLog", IsRequired = false, DefaultValue = null)]
+        public EventLogElement EventLog
+        {
+            get { return (EventLogElement)this["eventLog"]; }
+            set { this["eventLog"] = value; }   
+        }
+
+        public bool HasEventLogSection()
+        {
+            return ((EventLogElement)this["eventLog"]).ElementInformation.IsPresent;
+        }
+
+        public bool HasFileLogSection()
+        {
+            return ((FileElement)this["file"]).ElementInformation.IsPresent;
+        }
+    }
+
+    public class EventLogElement : ConfigurationElement
+    {
+        
+    }
+
+    public class FileElement : ConfigurationElement
+    {
+        [ConfigurationProperty("path", IsRequired = false)]
+        public string Path
+        {
+            get { return (string)this["path"]; }
+            set { this["path"] = value; }
+        }
+
+        [ConfigurationProperty("maxFiles", IsRequired = false, DefaultValue = 10)]
+        public int MaxFiles
+        {
+            get { return (int)this["maxFiles"]; }
+            set { this["maxFiles"] = value; }
+        }
+
+        [ConfigurationProperty("maxSize", IsRequired = false, DefaultValue = 1000)]
+        public int MaxSize
+        {
+            get { return (int)this["maxSize"]; }
+            set { this["maxSize"] = value; }
+        }
     }
 }
