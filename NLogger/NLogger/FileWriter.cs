@@ -33,8 +33,7 @@ namespace NLogger
             {
                 try
                 {
-                    var fi = new FileInfo(_file);
-                    if (fi.Length > _maxFileSize)
+                    if (GetLength() > _maxFileSize)
                     {
                         RollFiles();
                     }
@@ -54,9 +53,19 @@ namespace NLogger
             }
         }
 
+        private long GetLength()
+        {
+           long len = 0;
+           if (File.Exists(_file)) {
+              var fi = new FileInfo(_file);
+              len = fi.Length;
+           }
+           return len;
+        }
+
         private void RollFiles()
         {
-            for (var i = _maxFiles; i > 2; i--)
+            for (int i = _maxFiles; i > 2; i--)
             {
                 var target = NumberedFile(i);
                 var previous = NumberedFile(i - 1);
