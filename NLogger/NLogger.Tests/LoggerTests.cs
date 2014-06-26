@@ -14,7 +14,7 @@ namespace NLogger.Tests
         [TestInitialize]
         public void Init()
         {
-            _logger = new Logger("C:\\Logs\\Test.log");
+            _logger = LoggerFactory.CreateFileLogger();
         }
 
         [TestMethod]
