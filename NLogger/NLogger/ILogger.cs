@@ -5,18 +5,11 @@ namespace NLogger
     public interface ILogger
     {
         /// <summary>
-        /// Unconditionally write to log
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="args"></param>
-        void Write(string message, params string[] args);
-
-        /// <summary>
         /// Write to log if level is configured for logging
         /// </summary>
-        /// <param name="level"></param>
-        /// <param name="message"></param>
-        /// <param name="args"></param>
+        /// <param name="level">Level of the message to record</param>
+        /// <param name="message">Message to record</param>
+        /// <param name="args">Parameters to put in the message template</param>
         void Write(LoggingLevel level, string message, params string[] args);
 
         void LogCritical(string message);

@@ -14,16 +14,6 @@ namespace NLogger
         }
 
         /// <summary>
-        /// Unconditionally write to log
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="args"></param>
-        public void Write(string message, params string[] args)
-        {
-            _writer.AppendText(string.Format(message, args));
-        }
-
-        /// <summary>
         /// Write to log if level is configured for logging
         /// </summary>
         /// <param name="level"></param>
@@ -33,7 +23,7 @@ namespace NLogger
         {
             if ((int) level <= (int) _level)
             {
-                Write(message, args);
+                _writer.AppendText(string.Format(message, args), level);
             }
         }
 

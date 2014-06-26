@@ -21,7 +21,7 @@ namespace NLogger
             _currentDelay = _random.Next(10, 100);
         }
 
-        public void AppendText(string text)
+        public void AppendText(string text, LoggingLevel level)
         {
             var written = false;
             var tries = 0;

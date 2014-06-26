@@ -26,14 +26,14 @@ namespace NLogger.Tests
         [TestMethod]
         public void Write()
         {
-            _logger.Write("Test");
+            _logger.Write(LoggingLevel.Diagnostic,  "Test");
         }
 
         [TestMethod]
         public void WriteMultiThreaded()
         {
             var ids = new List<int> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-            Parallel.ForEach(ids, id => _logger.Write("Item " + id));
+            Parallel.ForEach(ids, id => _logger.Write(LoggingLevel.Error,  "Item " + id));
         }
 
         [TestMethod]
