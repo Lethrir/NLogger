@@ -19,9 +19,13 @@ namespace NLogger
                     config.File.MaxFiles,
                     config.LogLevel);
             }
+            else if (config.HasEventLogSection())
+            {
+                return CreateEventLogLogger(config.EventLog.Source, config.LogLevel);
+            }
             else
             {
-                return CreateEventLogLogger(config.LogLevel);
+                throw new ConfigurationException("NLogger has no config information for output. Please specify either a file or eventLog config section.");
             }
         }
 
@@ -31,9 +35,9 @@ namespace NLogger
             return new Logger(fileWriter, level);
         }
 
-        public static ILogger CreateEventLogLogger(LoggingLevel level)
+        public static ILogger CreateEventLogLogger(string source, LoggingLevel level)
         {
-            var eventLogWriter = new EventLogWriter();
+            var eventLogWriter = new EventLogWriter(source);
             return new Logger(eventLogWriter, level);
         }
     }

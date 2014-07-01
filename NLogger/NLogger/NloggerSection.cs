@@ -39,7 +39,12 @@ namespace NLogger
 
     public class EventLogElement : ConfigurationElement
     {
-        
+        [ConfigurationProperty("source", IsRequired = false)]
+        public string Source
+        {
+            get { return (string)this["source"]; }
+            set { this["source"] = value; }
+        }
     }
 
     public class FileElement : ConfigurationElement
