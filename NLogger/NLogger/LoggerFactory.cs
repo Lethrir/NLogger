@@ -25,7 +25,7 @@ namespace NLogger
             }
             else
             {
-                throw new ConfigurationException("NLogger has no config information for output. Please specify either a file or eventLog config section.");
+                return CreateNullLogger();
             }
         }
 
@@ -39,6 +39,11 @@ namespace NLogger
         {
             var eventLogWriter = new EventLogWriter(source);
             return new Logger(eventLogWriter, level);
+        }
+
+        public static ILogger CreateNullLogger()
+        {
+            return new Logger(new NullWriter(), 0);
         }
     }
 }

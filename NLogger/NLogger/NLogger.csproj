@@ -49,6 +49,7 @@
     <Compile Include="LoggingLevel.cs" />
     <Compile Include="ILogWriter.cs" />
     <Compile Include="NLoggerSection.cs" />
+    <Compile Include="NullWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
