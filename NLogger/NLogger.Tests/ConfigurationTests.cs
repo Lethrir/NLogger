@@ -40,6 +40,12 @@ namespace NLogger.Tests
         }
 
         [TestMethod]
+        public void GetIncrementCurrent()
+        {
+            Assert.AreEqual(true, _config.File.IncrementCurrent);
+        }
+
+        [TestMethod]
         public void EventLogIsNotPresent()
         {
             Assert.IsFalse(_config.HasEventLogSection());
