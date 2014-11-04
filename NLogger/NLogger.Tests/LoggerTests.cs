@@ -74,5 +74,25 @@ namespace NLogger.Tests
         {
             _logger.LogDiagnostic("Test");
         }
+
+        [TestMethod]
+        public void RollFile()
+        {
+            for (var i = 0; i < 10000; i++)
+            {
+                _logger.LogInfo(string.Format("Logging {0}", i));
+            }
+        }
+
+        [TestMethod]
+        public void IncrementalLogger()
+        {
+            var logger = LoggerFactory.CreateFileLogger("C:\\Logs\\Log.log", 10, 3, LoggingLevel.Diagnostic, true);
+
+            for (var i = 0; i < 10000; i++)
+            {
+                logger.LogInfo(string.Format("Logging {0}", i));
+            }
+        }
     }
 }

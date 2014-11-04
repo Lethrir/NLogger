@@ -17,7 +17,8 @@ namespace NLogger
                     config.File.Path,
                     config.File.MaxSize,
                     config.File.MaxFiles,
-                    config.LogLevel);
+                    config.LogLevel,
+                    config.File.IncrementCurrent);
             }
             else if (config.HasEventLogSection())
             {
@@ -29,9 +30,9 @@ namespace NLogger
             }
         }
 
-        public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level)
+        public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level, bool incrementCurrent = false)
         {
-            var fileWriter = new FileWriter(file, fileSize, numFiles);
+            var fileWriter = new FileWriter(file, fileSize, numFiles, incrementCurrent);
             return new Logger(fileWriter, level);
         }
 

@@ -69,5 +69,16 @@ namespace NLogger
             get { return (int)this["maxSize"]; }
             set { this["maxSize"] = value; }
         }
+
+        /// <summary>
+        /// If false, the current file is always path.log
+        /// If true, the current file is path.log.x where x increments with each new file - no files will be renamed
+        /// </summary>
+        [ConfigurationProperty("incrementCurrent", IsRequired = false, DefaultValue = false)]
+        public bool IncrementCurrent
+        {
+            get { return (bool) this["incrementCurrent"]; }
+            set { this["incrementCurrent"] = value; }
+        }
     }
 }
