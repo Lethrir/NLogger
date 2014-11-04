@@ -149,7 +149,7 @@ namespace NLogger
             else
             {
                 var files = GetDirectoryFiles();
-                var max = -1;
+                var max = 0;
                 foreach (var file in files)
                 {
                     var x = GetFileNumber(file);
@@ -159,7 +159,7 @@ namespace NLogger
                     }
                 }
 
-                _currentFile = ++max;
+                _currentFile = max;
             }
         }
 

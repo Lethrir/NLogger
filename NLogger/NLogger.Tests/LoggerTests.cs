@@ -89,7 +89,7 @@ namespace NLogger.Tests
         {
             var logger = LoggerFactory.CreateFileLogger("C:\\Logs\\Log.log", 10, 3, LoggingLevel.Diagnostic, true);
 
-            for (var i = 0; i < 10000; i++)
+            for (var i = 0; i < 1000; i++)
             {
                 logger.LogInfo(string.Format("Logging {0}", i));
             }
