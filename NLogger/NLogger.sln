@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogger", "NLogger\NLogger.csproj", "{F9474ABF-42F1-4FA0-90A7-424D5FCD5427}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogger.Tests", "NLogger.Tests\NLogger.Tests.csproj", "{A1F8A281-A6E0-4B67-B5ED-F309DD03F5D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLogger.Tests.NoConfig", "NLogger.Tests.NoConfig\NLogger.Tests.NoConfig.csproj", "{83A0328D-B97E-4912-95A8-C9CB58DC11D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A1F8A281-A6E0-4B67-B5ED-F309DD03F5D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1F8A281-A6E0-4B67-B5ED-F309DD03F5D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1F8A281-A6E0-4B67-B5ED-F309DD03F5D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83A0328D-B97E-4912-95A8-C9CB58DC11D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A0328D-B97E-4912-95A8-C9CB58DC11D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83A0328D-B97E-4912-95A8-C9CB58DC11D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83A0328D-B97E-4912-95A8-C9CB58DC11D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

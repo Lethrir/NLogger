@@ -11,6 +11,11 @@ namespace NLogger
         public static ILogger CreateLogger()
         {
             var config = (NLoggerSection)ConfigurationManager.GetSection("nLogger");
+            if (config == null)
+            {
+                return CreateNullLogger();
+            }
+
             if (config.HasFileLogSection())
             {
                 return CreateFileLogger(
@@ -20,14 +25,13 @@ namespace NLogger
                     config.LogLevel,
                     config.File.IncrementCurrent);
             }
-            else if (config.HasEventLogSection())
+            
+            if (config.HasEventLogSection())
             {
                 return CreateEventLogLogger(config.EventLog.Source, config.LogLevel);
             }
-            else
-            {
-                return CreateNullLogger();
-            }
+            
+            return CreateNullLogger();
         }
 
         public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level, bool incrementCurrent = false)
