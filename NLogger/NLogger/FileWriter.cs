@@ -3,6 +3,9 @@ using System.IO;
 
 namespace NLogger
 {
+    /// <summary>
+    /// Implements an ILogWriter which writes entries to a file
+    /// </summary>
     public class FileWriter : ILogWriter
     {
         private readonly string _file;
@@ -14,6 +17,13 @@ namespace NLogger
         private readonly int _maxFileSize;
         private readonly int _maxFiles;
 
+        /// <summary>
+        /// Implements an ILogWriter which writes entries to a file
+        /// </summary>
+        /// <param name="file">Path of the file to write to</param>
+        /// <param name="fileSize">Maximum file size in KB</param>
+        /// <param name="numFiles">Maximum number of log files to keep</param>
+        /// <param name="incrementCurrent">Do we write to the highest or lowest numbered file</param>
         public FileWriter(string file, int fileSize, int numFiles, bool incrementCurrent)
         {
             _maxFileSize = 1024*fileSize;
@@ -29,6 +39,11 @@ namespace NLogger
             }
         }
 
+        /// <summary>
+        /// Write a log entry to the file
+        /// </summary>
+        /// <param name="text">Message to log</param>
+        /// <param name="level">Level of the message</param>
         public void AppendText(string text, LoggingLevel level)
         {
             var written = false;
