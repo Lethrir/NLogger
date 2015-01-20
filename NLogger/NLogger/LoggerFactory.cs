@@ -1,4 +1,6 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Runtime.InteropServices;
 
 namespace NLogger
 {

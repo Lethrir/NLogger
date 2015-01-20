@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleWriter.cs" />
+    <Compile Include="CustomLogFactory.cs" />
     <Compile Include="EventLogWriter.cs" />
     <Compile Include="FileWriter.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="ILogWriterRegistration.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LoggerFactory.cs" />
     <Compile Include="LoggingLevel.cs" />
