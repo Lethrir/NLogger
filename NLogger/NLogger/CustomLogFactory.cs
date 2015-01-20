@@ -24,13 +24,19 @@ namespace NLogger
         /// <returns></returns>
         public ILogger CreateLogger(string sectionName)
         {
-            var config = (T)ConfigurationManager.GetSection(sectionName);
+            var config = (T) ConfigurationManager.GetSection(sectionName);
+            
+            if (config != null)
+            {
+                var writer = GetLogWriter(config);
 
-            var writer = GetLogWriter(config);
+                if (writer != null)
+                {
+                    return new Logger(writer, config.LogLevel);
+                }
+            }
 
-            return writer != null
-                ? new Logger(writer, config.LogLevel)
-                : LoggerFactory.CreateLogger();
+            return LoggerFactory.CreateLogger();
         }
 
         private ILogWriter GetLogWriter(T config)
