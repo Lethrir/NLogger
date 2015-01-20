@@ -16,6 +16,15 @@ namespace NLogger
         public static ILogger CreateLogger()
         {
             var config = (NLoggerSection)ConfigurationManager.GetSection("nLogger");
+            return CreateLogger(config);
+        }
+
+        /// <summary>
+        /// Create a logger using App.config or Web.config settings
+        /// </summary>
+        /// <returns></returns>
+        public static ILogger CreateLogger(NLoggerSection config)
+        {
             if (config == null)
             {
                 return CreateNullLogger();

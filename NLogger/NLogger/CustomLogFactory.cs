@@ -36,7 +36,7 @@ namespace NLogger
                 }
             }
 
-            return LoggerFactory.CreateLogger();
+            return LoggerFactory.CreateLogger(config);
         }
 
         private ILogWriter GetLogWriter(T config)
