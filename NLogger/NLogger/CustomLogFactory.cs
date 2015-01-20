@@ -18,6 +18,12 @@ namespace NLogger
             _logWriterTypes.Add(registration);
         }
 
+        public ILogger CreateLogger(string sectionName, Configuration configFile)
+        {
+            var config = (T)configFile.GetSection(sectionName);
+            return CreateLogger(config);
+        }
+
         /// <summary>
         /// Create a logger using App.config or Web.config settings
         /// </summary>
@@ -25,7 +31,11 @@ namespace NLogger
         public ILogger CreateLogger(string sectionName)
         {
             var config = (T) ConfigurationManager.GetSection(sectionName);
-            
+            return CreateLogger(config);
+        }
+
+        private ILogger CreateLogger(T config)
+        {
             if (config != null)
             {
                 var writer = GetLogWriter(config);
