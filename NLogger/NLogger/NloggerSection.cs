@@ -12,6 +12,13 @@ namespace NLogger
             set { this["logLevel"] = value; }
         }
 
+        [ConfigurationProperty("failIfUnauthorized", IsRequired = false, DefaultValue = true)]
+        public bool FailIfUnauthorized
+        {
+            get { return (bool)this["failIfUnauthorized"]; }
+            set { this["failIfUnauthorized"] = value; }
+        }
+
         [ConfigurationProperty("file")]
         public FileElement File
         {
@@ -25,14 +32,7 @@ namespace NLogger
             get { return (EventLogElement)this["eventLog"]; }
             set { this["eventLog"] = value; }   
         }
-
-        [ConfigurationProperty("failIfUnauthorized", IsRequired = false, DefaultValue = true)]
-        public bool FailIfUnauthorized
-        {
-            get { return (bool) this["failIfUnauthorized"]; }
-            set { this["failIfUnauthorized"] = value; }
-        }
-
+        
         public bool HasEventLogSection()
         {
             return ((EventLogElement)this["eventLog"]).ElementInformation.IsPresent;
