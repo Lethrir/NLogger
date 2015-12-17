@@ -8,10 +8,13 @@ namespace NLogger
     /// </summary>
     public class FileWriter : ILogWriter
     {
+        private const int MAX_TRIES = 3;
+
         private readonly string _file;
         private readonly Random _random;
         private int _currentDelay;
         private readonly bool _incrementCurrent;
+        private readonly bool _failIfUnauthorized;
         private int _currentFile;
 
         private readonly int _maxFileSize;
@@ -24,7 +27,7 @@ namespace NLogger
         /// <param name="fileSize">Maximum file size in KB</param>
         /// <param name="numFiles">Maximum number of log files to keep</param>
         /// <param name="incrementCurrent">Do we write to the highest or lowest numbered file</param>
-        public FileWriter(string file, int fileSize, int numFiles, bool incrementCurrent)
+        public FileWriter(string file, int fileSize, int numFiles, bool incrementCurrent, bool failIfUnauthorized)
         {
             _maxFileSize = 1024*fileSize;
             _maxFiles = numFiles;
@@ -32,6 +35,7 @@ namespace NLogger
             _random = new Random();
             _currentDelay = _random.Next(10, 100);
             _incrementCurrent = incrementCurrent;
+            _failIfUnauthorized = failIfUnauthorized;
 
             if (_incrementCurrent)
             {
@@ -52,10 +56,11 @@ namespace NLogger
             var time = DateTime.Now.ToLongTimeString();
             var date = DateTime.Now.ToShortDateString();
 
-            while (!written && tries < 3)
+            while (!written && tries < MAX_TRIES)
             {
                 try
                 {
+                    CheckFolderExists();
                     if (GetLength() > _maxFileSize)
                     {
                         if (_incrementCurrent)
@@ -72,10 +77,18 @@ namespace NLogger
                         tries > 0
                             ? string.Format("{0} {1} {2} after {3} tries\r\n", date, time, text, tries)
                             : string.Format("{0} {1} {2}\r\n", date, time, text);
-                    
+
                     File.AppendAllText(FileName(), logText);
-                    
+
                     written = true;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    if (_failIfUnauthorized)
+                    {
+                        throw new UnauthorizedAccessException($"This program is not authorized to write to the file {_file}");
+                    }
+                    tries = MAX_TRIES;
                 }
                 catch (Exception)
                 {
@@ -189,11 +202,42 @@ namespace NLogger
 
         private string[] GetDirectoryFiles()
         {
-            var idx = _file.LastIndexOf('\\');
-            var folder = _file.Remove(idx, _file.Length - idx);
-            var fileName = _file.Remove(0, idx + 1);
+            CheckFolderExists();
+            var folder = GetFolderName();
+            var fileName = GetFileName();
             var files = Directory.GetFiles(folder, fileName + "*");
             return files;
+        }
+
+        private void CheckFolderExists()
+        {
+            var folder = GetFolderName();
+            if (!Directory.Exists(folder))
+            {
+                try
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    if (_failIfUnauthorized)
+                    {
+                        throw new UnauthorizedAccessException($"The directory {folder} does not exist and this program is not authorized to create it");
+                    }
+                }
+            }
+        }
+
+        private string GetFolderName()
+        {
+            var idx = _file.LastIndexOf('\\');
+            return _file.Remove(idx, _file.Length - idx);
+        }
+
+        private string GetFileName()
+        {
+            var idx = _file.LastIndexOf('\\');
+            return _file.Remove(0, idx + 1);
         }
     }
 }

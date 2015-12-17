@@ -57,9 +57,9 @@ namespace NLogger
         /// <param name="level">Logging level</param>
         /// <param name="incrementCurrent">Which file to write to</param>
         /// <returns>File logger instance</returns>
-        public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level, bool incrementCurrent = false)
+        public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level, bool incrementCurrent = false, bool failIfUnauthorized = true)
         {
-            var fileWriter = new FileWriter(file, fileSize, numFiles, incrementCurrent);
+            var fileWriter = new FileWriter(file, fileSize, numFiles, incrementCurrent, failIfUnauthorized);
             return new Logger(fileWriter, level);
         }
 

@@ -26,6 +26,13 @@ namespace NLogger
             set { this["eventLog"] = value; }   
         }
 
+        [ConfigurationProperty("failIfUnauthorized", IsRequired = false, DefaultValue = true)]
+        public bool FailIfUnauthorixed
+        {
+            get { return (bool) this["failIfUnauthorized"]; }
+            set { this["failIfUnauthorized"] = value; }
+        }
+
         public bool HasEventLogSection()
         {
             return ((EventLogElement)this["eventLog"]).ElementInformation.IsPresent;
