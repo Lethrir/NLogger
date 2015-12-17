@@ -27,7 +27,7 @@ namespace NLogger
         }
 
         [ConfigurationProperty("failIfUnauthorized", IsRequired = false, DefaultValue = true)]
-        public bool FailIfUnauthorixed
+        public bool FailIfUnauthorized
         {
             get { return (bool) this["failIfUnauthorized"]; }
             set { this["failIfUnauthorized"] = value; }

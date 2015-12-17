@@ -37,7 +37,8 @@ namespace NLogger
                     config.File.MaxSize,
                     config.File.MaxFiles,
                     config.LogLevel,
-                    config.File.IncrementCurrent);
+                    config.File.IncrementCurrent,
+                    config.FailIfUnauthorized);
             }
             
             if (config.HasEventLogSection())
@@ -56,6 +57,7 @@ namespace NLogger
         /// <param name="numFiles">Maximum number of log files to keep</param>
         /// <param name="level">Logging level</param>
         /// <param name="incrementCurrent">Which file to write to</param>
+        /// <param name="failIfUnauthorized">Should the logger throw an exception if unauthorized to write to log</param>
         /// <returns>File logger instance</returns>
         public static ILogger CreateFileLogger(string file, int fileSize, int numFiles, LoggingLevel level, bool incrementCurrent = false, bool failIfUnauthorized = true)
         {
